@@ -1,11 +1,32 @@
 import random
 
-def roll(): return random.randint(0, 10)
+frames = []
+
+def roll():
+    return random.randint(5,10);
+
+def second_roll(num):
+    return random.randint(0,num);
 
 def generate_frames():
-    frames = [(roll(), roll()) if (f < 9 and (r := roll()) < 10) else (10, 0) for f in range(9)]
-    frames.append((roll(), roll(), roll() if sum(frames[-1][:2]) >= 10 else 0))
-    return frames
+
+    for i in range(1,11):
+        if i < 10:
+            frame = [roll()]
+            if frame[0] == 10:
+                frame.append(0)
+            else:
+                frame.append(second_roll(10-frame[0]))
+            frames.append(frame)
+        else:
+            frame = [roll()]
+            if frame[0] == 10:
+                frame.append(0)
+            else:
+                frame.append(second_roll(10-frame[0]))
+            frame.append(roll())
+
+            frames.append(frame)
 
 def calculate_score(frames):
     score = 0
@@ -17,6 +38,9 @@ def calculate_score(frames):
             score += frames[i+1][0]
     return score
 
-frames = generate_frames()
+
+generate_frames()
 print("\n".join(f"Frame {i+1}: {f}" for i, f in enumerate(frames)))
 print(f"Total Score: {calculate_score(frames)}")
+
+
