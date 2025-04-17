@@ -2,7 +2,6 @@
 ## 2.txt 저장
 ## 3.txt 불러오기
 ## 4.평균 평점 구하기
-## 5.txt 추가 저장
 
 import random
 import os
