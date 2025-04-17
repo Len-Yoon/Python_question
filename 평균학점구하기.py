@@ -81,3 +81,9 @@ def avgScore ():
     avg_gpa = total_point / total_credit
     print(f"\n총 이수 학점: {total_credit}")
     print(f"평균 학점 (GPA): {avg_gpa:.2f}")
+
+
+##main 함수
+allScore = makeGrade()
+result = saveFile(allScore)
+returnTxt = avgScore()
