@@ -1,6 +1,6 @@
 import random
 
-#숫자야구 게임 풀이
+# 숫자야구 게임 풀이
 quest_num = random.randint(1,999)
 input_num = 0
 count = 1;
