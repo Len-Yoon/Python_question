@@ -1,86 +1,84 @@
 import random
 import ast
 
-class GradeMaker:
-    def __init__(self):
-        self.subjects = []
 
-    def rand_score(self):
-        return random.randint(90, 100)
+### 랜덤으로 과목 점수 만들기
+def randScore ():
+    return random.randint(80,100)
 
-    def rand_credit(self):
-        return random.randint(2, 3)
+def randCredit ():
+    return random.randint(2,3)
 
-    def get_grade(self, score):
+##과목명,학점,점수,등급 랜덤으로 만들기
+def makeGrade ():
+    totalCredit = 0
+    sub = 1
+    arr = []
+
+    while totalCredit < 140:
+        subject = "과목"+str(sub)
+        sub += 1
+
+        credit = randCredit()
+        totalCredit += credit
+
+        score = randScore()
+        grade = ''
         if score >= 95:
-            return 'A+'
+            grade = 'A+'
         elif score >= 90:
-            return 'A'
+            grade = 'A'
         elif score >= 85:
-            return 'B+'
+            grade = 'B+'
         elif score >= 80:
-            return 'B'
+            grade = 'B'
         elif score >= 75:
-            return 'C+'
+            grade = 'C+'
         elif score >= 70:
-            return 'C'
+            grade = 'C'
         else:
-            return 'F'
+            grade = 'F'
 
-    def make(self):
-        total_credit = 0
-        count = 1
+        arr.append([subject,credit,score,grade])
+    return arr
 
-        while total_credit < 140:
-            name = f"과목{count}"
-            count += 1
-            credit = self.rand_credit()
-            total_credit += credit
-            score = self.rand_score()
-            grade = self.get_grade(score)
 
-            self.subjects.append([name, credit, score, grade])
+def saveFile (allScore):
 
-        return self.subjects
+    with open("과목 별 학점", 'w', encoding='utf-8') as f:
 
-    def save(self, grades):
-        with open("과목 별 학점", 'w', encoding='utf-8') as f:
-            for item in grades:
-                f.write(f"{item}\n")
+        for i in allScore:
+            f.write(f"{i}\n")
 
-class GradeFile:
-    def __init__(self):
-        self.grade_to_point = {
-            'A+': 4.5, 'A': 4.0, 'B+': 3.5,
-            'B': 3.0, 'C+': 2.5, 'C': 2.0, 'F': 0.0
-        }
+##저장된 text 가져와 배열로 저장
+def avgScore ():
+    arr = []
+    grade_to_point = {'A+': 4.5, 'A': 4.0, 'B+': 3.5, 'B': 3.0, 'C+': 2.5, 'C': 2.0, 'F': 0.0}
 
-    def load_and_avg(self):
-        data = []
-        with open("과목 별 학점", 'r', encoding='utf-8') as f:
-            for line in f:
-                data.append(ast.literal_eval(line.strip()))
+    with open("과목 별 학점","r", encoding='utf-8') as f:
+        lines = f.readlines()
+        for i in lines:
+            arr.append(ast.literal_eval(i.strip()))
 
-        total_point = 0
-        total_credit = 0
+    total_point = 0
+    total_credit = 0
 
-        for subject in data:
-            credit = subject[1]
-            grade = subject[3]
-            point = self.grade_to_point.get(grade, 0)
-            total_point += point * credit
-            total_credit += credit
+    for subject in arr:
+        credit = subject[1]
+        grade = subject[3]
 
-        avg = total_point / total_credit if total_credit else 0
+        point = grade_to_point[grade]
 
-        print(f"\n총 이수 학점: {total_credit}")
-        print(f"평균 학점 (GPA): {avg:.2f}")
+        total_point += point * credit
+        total_credit += credit
 
-# 학점 및 등급 생성 후 저장
-maker = GradeMaker()
-grades = maker.make()  # 학점 데이터 생성
-maker.save(grades)
+    avg_gpa = total_point / total_credit
+    print(f"\n총 이수 학점: {total_credit}")
+    print(f"평균 학점 (GPA): {avg_gpa:.2f}")
 
-# 파일 읽고 GPA 계산
-file = GradeFile()
-file.load_and_avg()
+##학점 140점 생성 및 저장
+allScore = makeGrade()
+result = saveFile(allScore)
+
+## 평균 학점 계산
+returnTxt = avgScore()
