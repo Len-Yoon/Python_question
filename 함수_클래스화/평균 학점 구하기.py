@@ -44,9 +44,7 @@ def makeGrade ():
 
 
 def saveFile (allScore):
-
     with open("과목 별 학점", 'w', encoding='utf-8') as f:
-
         for i in allScore:
             f.write(f"{i}\n")
 
