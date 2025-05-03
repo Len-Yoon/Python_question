@@ -110,7 +110,7 @@ class BowlingApp:
             self.second_frame.pack_forget()
             self.third_label.pack_forget()
             self.third_frame.pack_forget()
-            self.gui.after(300, self.next_frame)
+            self.next_frame()
         else:
             self.second_label.pack()
             self.second_frame.pack()
@@ -142,7 +142,7 @@ class BowlingApp:
     def select_second(self, score):
         self.second_score = score
         if self.frame_num < 10:
-            self.gui.after(300, self.next_frame)
+            self.next_frame()
         else:
             if (self.first_score == 10) or (self.first_score + self.second_score == 10):
                 self.third_label.pack()
@@ -177,7 +177,7 @@ class BowlingApp:
     # 세 번째 투구 점수 선택 처리 (10프레임 한정)
     def select_third(self, score):
         self.third_score = score
-        self.gui.after(300, self.next_frame)
+        self.next_frame()
 
     # 프레임 결과 저장 및 다음 프레임 준비
     def next_frame(self):
