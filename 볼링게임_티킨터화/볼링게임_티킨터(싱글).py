@@ -89,6 +89,7 @@ class BowlingApp:
         self.first_score = None
 
         def make_handler(score):
+            #자기 점수만 가지기 위해 사용
             def handler():
                 self.select_first(score)
 
@@ -125,9 +126,16 @@ class BowlingApp:
             max_score = 10
         else:
             max_score = 10 - self.first_score
+
+        def make_handler(score):
+            # 자기 점수만 가지기 위해 사용
+            def handler():
+                self.select_second(score)
+
+            return handler
+
         for i in range(0, max_score + 1):
-            b = tk.Button(self.second_frame, text=str(i), width=3,
-                          command=lambda x=i: self.select_second(x))
+            b = tk.Button(self.second_frame, text=str(i), width=3, command=make_handler(i))
             b.pack(side="left", padx=2)
 
     # 두 번째 투구 점수 선택 처리
@@ -154,9 +162,16 @@ class BowlingApp:
             max_score = 10
         else:
             max_score = 10
+
+        def make_handler(score):
+            # 자기 점수만 가지기 위해 사용
+            def handler():
+                self.select_third(score)
+
+            return handler
+
         for i in range(0, max_score + 1):
-            b = tk.Button(self.third_frame, text=str(i), width=3,
-                          command=lambda x=i: self.select_third(x))
+            b = tk.Button(self.third_frame, text=str(i), width=3, command=make_handler(i))
             b.pack(side="left", padx=2)
 
     # 세 번째 투구 점수 선택 처리 (10프레임 한정)
