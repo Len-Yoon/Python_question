@@ -207,10 +207,17 @@ class BowlingApp:
 
     # 최종 점수 갱신
     def show_total(self):
+        # 텍스트 박스 첫째줄 첫번째 내용 지우기
         self.result_text.delete(1.0, tk.END)
-        for i, frame in enumerate(self.game.frames):
-            self.result_text.insert(tk.END, f"Frame {i+1}: {frame} | 누적 점수: {self.game.scores[i]}\n")
-        self.result_text.insert(tk.END, f"\n최종 점수: {self.game.final_score}\n")
+        # 각 프레임별 점수 출력
+        for i in range(len(self.game.frames)):
+            frame = self.game.frames[i]
+            score = self.game.scores[i]
+            text = "Frame {}: {} | 누적 점수: {}\n".format(i + 1, frame, score)
+            self.result_text.insert(tk.END, text)
+
+        # 최종 점수 출력
+        self.result_text.insert(tk.END, "\n최종 점수: {}\n".format(self.game.final_score))
 
 gui = tk.Tk()
 app = BowlingApp(gui)
