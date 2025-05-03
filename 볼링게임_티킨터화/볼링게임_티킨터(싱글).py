@@ -207,7 +207,7 @@ class BowlingApp:
 
     # 최종 점수 갱신
     def show_total(self):
-        # 텍스트 박스 첫째줄 첫번째 내용 지우기
+        # 텍스트 박스 첫째줄 첫번째 단어 지우기
         self.result_text.delete(1.0, tk.END)
         # 각 프레임별 점수 출력
         for i in range(len(self.game.frames)):
