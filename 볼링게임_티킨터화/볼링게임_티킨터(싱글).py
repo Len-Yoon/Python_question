@@ -56,7 +56,7 @@ class BowlingApp:
         self.frame_num = 1
 
         self.top_frame = tk.Frame(gui)
-        self.top_frame.pack(side="top", fill="x", pady=10)
+        self.top_frame.pack(side="top", fill="x", pady=10) # pady=10 -> 10픽셀만큼 상단 여백처리
 
         self.label = tk.Label(self.top_frame, text="1프레임 - 첫 번째 투구 점수를 선택하세요:")
         self.label.pack()
@@ -75,6 +75,7 @@ class BowlingApp:
 
         self.bottom_frame = tk.Frame(gui)
         self.bottom_frame.pack(side="bottom", fill="both", expand=True)
+        # fill = "both" -> 부모 컨테이너 안에서 가로세로 모두 늘려줌
 
         self.result_text = tk.Text(self.bottom_frame, height=15, width=40)
         self.result_text.pack(fill="both", expand=True, pady=10)
@@ -86,9 +87,15 @@ class BowlingApp:
         for widget in self.first_frame.winfo_children():
             widget.destroy()
         self.first_score = None
+
+        def make_handler(score):
+            def handler():
+                self.select_first(score)
+
+            return handler
+
         for i in range(0, 11):
-            b = tk.Button(self.first_frame, text=str(i), width=3,
-                          command=lambda x=i: self.select_first(x))
+            b = tk.Button(self.first_frame, text=str(i), width=3, command=make_handler(i))
             b.pack(side="left", padx=2)
 
     # 첫 투구 점수 선택 처리
