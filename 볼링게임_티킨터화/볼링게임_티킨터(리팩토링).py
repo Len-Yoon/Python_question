@@ -64,8 +64,9 @@ class Player:
 # 플레이어 수를 입력받는 다이얼로그 팝업 창
 class PlayerCount(simpledialog.Dialog):
     def body(self, master):
-        # 안내문과 Spinbox(1~4) 배치
+        # 팝업 창 크기 조정
         self.geometry("400x200")
+        # 안내문과 Spinbox(1~4) 배치
         tk.Label(master, text="플레이어 수를 선택하세요 (1~4):").pack(padx=10, pady=10)
         self.var = tk.IntVar(value=1)
         self.spin = tk.Spinbox(master, from_=1, to=4, textvariable=self.var, width=10)
@@ -97,7 +98,7 @@ class BowlingApp:
         self.score_frame.pack(side="right", fill="y", padx=10)
         self.player_labels = []
         for p in self.players:
-            label = tk.Label(self.score_frame, text=f"{p.name}: 0", anchor="w")
+            label = tk.Label(self.score_frame, text=f"{p.name}: 0", anchor="w") # anchor="w" 텍스트 왼쪽 정렬
             label.pack(fill="x", pady=2)
             self.player_labels.append(label)
 
