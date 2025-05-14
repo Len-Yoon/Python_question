@@ -12,7 +12,7 @@ map_size = 6 # 미로 크기
 start = (1,0) # 시작 위치
 end = (3,5) # 도착 위치
 visited = [] # 방문 체크
-directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # 탐색 순서 (오른쪽->아래->왼쪽->위)
+directions = [(0, 1), (-1, 0), (0, -1), (1, 0)]  # 탐색 순서 (오른쪽->아래->왼쪽->위)
 
 def find_map_load(map, map_size, start, end):
     visited = [[False for _ in range(map_size)] for _ in range(map_size)]
