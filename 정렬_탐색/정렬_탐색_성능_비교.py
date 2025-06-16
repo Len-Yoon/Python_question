@@ -84,6 +84,8 @@ def quick_sort(arr):
     return comp[0], swap[0]
 
 ### 3. 정렬 알고리즘 성능 비교 ###
+original_data2 = sorted(random.sample(range(1, 20000), 10000))
+
 sorting_algorithms = [
     ("선택 정렬", selection_sort),
     ("버블 정렬", bubble_sort),
@@ -93,7 +95,7 @@ sorting_algorithms = [
 
 print("===== 정렬 알고리즘 성능 비교 =====")
 for name, algorithm in sorting_algorithms:
-    data_copy = original_data.copy()
+    data_copy = original_data2.copy()
     start_time = time.time()
     comp, swap = algorithm(data_copy)
     end_time = time.time()
@@ -104,7 +106,7 @@ for name, algorithm in sorting_algorithms:
     print(f"정렬 검증: {data_copy == sorted(original_data)}")
 
 ### 4. 퀵 정렬로 데이터 정렬 (다음 단계에서 사용) ###
-data = original_data.copy()
+data = original_data2.copy()
 quick_sort(data)  # 실제 정렬 수행
 
 # 5. 해시 탐색용 딕셔너리 생성 (key: 값, value: 인덱스)
@@ -210,6 +212,7 @@ hash_time = end - start
 
 # 13. 결과 출력 (경로는 너무 길면 일부만 출력)
 print("\n===== 탐색 알고리즘 성능 비교 =====")
+print(f"배열: {original_data} \n")
 print(f"찾는 값: {search_value}\n")
 print(f"순차 탐색: 인덱스={seq_idx}, 비교 횟수={seq_count}, 시간={seq_time:.6f}초")
 print(f"탐색 경로(앞 10개): {sequential_path[:10]}... (총 {len(sequential_path)}개)")
